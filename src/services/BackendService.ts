@@ -1,24 +1,25 @@
+import type { VoiceToAnswerModel } from "~models/voiceToAnswer";
 
-const BASE_URL = "https://api.dvoice.com";
+const BASE_URL = "https://localhost:7182/api/";
 
 export class BackendService {
-    public async voiceToAnswer(audioBlob: Blob): Promise<any> {
+    public async voiceToAnswer(model: VoiceToAnswerModel): Promise<Blob> {
         const formData = new FormData();
-        formData.append("file", audioBlob, "recording.wav");
+        formData.append("AudioBlob", model.AudioBlob, "audio.wav");
+        formData.append("WebBody", model.WebBody);
 
-        const response = await fetch(BASE_URL + "/voice-to-answer", {
+        const response = await fetch(BASE_URL + "HealthCheck", {
             method: "POST",
-            body: formData,
-            headers: {
-                // Eğer sunucu özel bir header beklemiyorsa Content-Type belirtme
-                // Browser otomatik olarak `multipart/form-data` kullanacak.
-            }
+            body: formData
         });
 
         if (!response.ok) {
             throw new Error(`Server responded with status: ${response.status}`);
         }
 
-        return response.json();
+        console.log("Response from backend:", response);
+        // Yanıtı doğrudan Blob olarak döndürüyoruz
+        return response.blob();
     }
+
 }

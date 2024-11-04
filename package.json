@@ -10,6 +10,7 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "@plasmohq/messaging": "workspace:*",
     "flowbite": "^2.5.2",
     "lucide-react": "^0.454.0",
     "plasmo": "0.89.3",
