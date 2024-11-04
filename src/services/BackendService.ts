@@ -8,7 +8,7 @@ export class BackendService {
         formData.append("AudioBlob", model.AudioBlob, "audio.wav");
         formData.append("WebBody", model.WebBody);
 
-        const response = await fetch(BASE_URL + "HealthCheck", {
+        const response = await fetch(BASE_URL + "dvoice/dvoice", {
             method: "POST",
             body: formData
         });
